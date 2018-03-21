@@ -35,17 +35,19 @@ SRCS = fdf.c \
 		links.c \
 		rotz.c
 
+MINILIBXDIR = minilibx/
+
 OBJS = $(addprefix $(OBJSDIR),$(SRCS:.c=.o))
 
 $(OBJSDIR)%.o: $(SRCSDIR)%.c
 	@mkdir -p $(OBJSDIR)
-	$(CC) $(CFLAGS) -I $(INCSDIR) -I $(LIBFTDIR)$(INCSDIR) -o $@ -c $<
+	$(CC) $(CFLAGS) -I $(INCSDIR) -I $(LIBFTDIR)$(INCSDIR) -I $(MINILIBXDIR) -o $@ -c $<
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
 	make -C $(LIBFTDIR)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -L./libft -lft -lmlx -framework OpenGL -framework AppKit
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -L./libft -lft -L./minilibx -lmlx -framework OpenGL -framework AppKit
 
 clean:
 	rm -rf $(OBJSDIR)
